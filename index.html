@@ -1094,7 +1094,7 @@ footer span { color:var(--neon) }
       <div class="timeline-item reveal">
         <div class="timeline-dot"></div>
         <div class="timeline-date">MAR 2024 — PRESENT</div>
-        <div class="timeline-role">Software Engineer (.NET)</div>
+        <div class="timeline-role">Software Engineer </div>
         <div class="timeline-company">
           <span class="company-badge">Tech Mahindra · Thirdware Solution</span>
           <span style="color:var(--muted);font-size:.85rem">Chennai, India</span>
@@ -1326,8 +1326,18 @@ footer span { color:var(--neon) }
       return 'clamp(3rem, 6vw, 6rem)';
     }
 
-    // Phase 1 – zoom-in "MV" from centre
-    letters.style.cssText = 'opacity:0;transform:scale(.5);filter:blur(12px);color:#fff;white-space:nowrap;';
+    // Phase 1 – zoom-in "MV" — M white, V gradient, perfectly centred
+    const GRAD = 'linear-gradient(135deg,#00e5ff 0%,#7b2ff7 60%,#ff6b6b 100%)';
+    const spanGrad = `background:${GRAD};-webkit-background-clip:text;-webkit-text-fill-color:transparent;`;
+    // Set innerHTML first, then apply cssText only for animatable props
+    letters.innerHTML = `<span style="color:#fff;-webkit-text-fill-color:#fff;">M</span><span style="${spanGrad}">V</span>`;
+    letters.style.opacity   = '0';
+    letters.style.transform = 'scale(.5)';
+    letters.style.filter    = 'blur(12px)';
+    letters.style.display   = 'flex';
+    letters.style.alignItems = 'center';
+    letters.style.justifyContent = 'center';
+    letters.style.whiteSpace = 'nowrap';
     glow.style.opacity = '0';
     await wait(100);
 
@@ -1360,18 +1370,19 @@ footer span { color:var(--neon) }
     letters.style.transform = 'scale(1.14)';
     await wait(450);
 
-    // swap to full name — Mithilesh + V both in hero gradient
-    const grad = 'background:linear-gradient(135deg,#00e5ff 0%,#7b2ff7 60%,#ff6b6b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;';
-    letters.innerHTML = `<span style="${grad}">Mithilesh</span>&nbsp;<span style="${grad}">V</span>`;
+    // swap to full name — gradient, flex-centred, no overflow
+    letters.innerHTML = `<span style="${spanGrad}">Mithilesh&nbsp;V</span>`;
     letters.classList.add('fullname');
-    letters.style.transition   = 'none';
-    letters.style.fontSize     = safeFontSize();
-    letters.style.letterSpacing = '.03em';
-    letters.style.filter   = 'blur(20px)';
-    letters.style.opacity  = '0';
-    letters.style.transform = 'scale(.88)';
-    letters.style.color    = '#fff';
-    letters.style.whiteSpace = 'nowrap';
+    letters.style.transition     = 'none';
+    letters.style.fontSize       = safeFontSize();
+    letters.style.letterSpacing  = '.04em';
+    letters.style.filter         = 'blur(20px)';
+    letters.style.opacity        = '0';
+    letters.style.transform      = 'scale(.88)';
+    letters.style.display        = 'flex';
+    letters.style.alignItems     = 'center';
+    letters.style.justifyContent = 'center';
+    letters.style.whiteSpace     = 'nowrap';
     await wait(40);
 
     // Phase 5 – cinematic reveal
